@@ -28,7 +28,7 @@ export default function HomePage() {
           href="#contact"
           className="mt-8 bg-blue-700 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-800 transition"
         >
-          Let's Connect
+          Let&apos;s Connect
         </a>
       </section>
 

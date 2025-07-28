@@ -14,7 +14,7 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-bold text-blue-800 mb-4">About Me</h3>
           <p className="text-base text-gray-700 leading-relaxed">
-            I'm <strong>Lelisa Shashura</strong>, a dedicated Software Developer passionate about creating clean, modern, and responsive web applications using the latest tech stack.
+            I&apos;m <strong>Lelisa Shashura</strong>, a dedicated Software Developer passionate about creating clean, modern, and responsive web applications using the latest tech stack.
           </p>
         </div>
 

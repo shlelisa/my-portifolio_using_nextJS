@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import ContactUs from '@/app/CustomerSide/ContactUs/page';
 import About from '@/app/CustomerSide/components/About/page';
-import Projects from '@/app/projects/page';
+import Projects from '@/app/CustomerSide/projects/page';
 
 
 const skills = ['PHP','SQL','Java','Mobile Application','PostgressSQL','JavaScript', 'React.js', 'Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS', 'TypeScript'];

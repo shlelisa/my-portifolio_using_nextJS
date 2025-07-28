@@ -36,7 +36,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
 <>
-<Header/>
+
 
   <section className="max-w-7xl mx-auto py-20 px-6">
   <h2 className="text-5xl font-extrabold mb-12 text-center text-blue-800 tracking-wide">
@@ -85,7 +85,7 @@ export default function ProjectsPage() {
     ))}
   </div>
 </section>
-<Footer/>
+
  </>
 
   );

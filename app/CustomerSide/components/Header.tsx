@@ -17,7 +17,7 @@ const Header = () => {
           <li className="cursor-pointer hover:text-blue-800" ><Link href="/">Home</Link></li>
           <li className="cursor-pointer hover:text-blue-800" ><Link href="/CustomerSide/components/About">About</Link></li>
           <li className="cursor-pointer hover:text-blue-800" ><Link href="/">Skills</Link></li>
-          <li className="cursor-pointer hover:text-blue-800" ><Link href="/projects">Projects</Link></li>
+          <li className="cursor-pointer hover:text-blue-800" ><Link href="/CustomerSide/projects">Projects</Link></li>
           <li className="cursor-pointer hover:text-blue-800"><Link href="/CustomerSide/ContactUs">ContactUs</Link></li>
         </ul>
       </nav>

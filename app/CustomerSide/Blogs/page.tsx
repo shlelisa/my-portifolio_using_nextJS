@@ -7,7 +7,7 @@ import { neon } from "@netlify/neon";
 const sql = neon(); // automatically use netlify database url
 
 const Blogs = () => {
-  const [posts, setPosts] = useState<Record<string, any>[]>([]);
+  const [posts, setPosts] = useState<Record<string, string>[]>([]);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -62,9 +62,9 @@ const Blogs = () => {
         <p> No Posts found.</p>
       ) : (
         posts.map((post) => (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div  key={post.id} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div
-              key={post.id}
+             
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <img
@@ -72,6 +72,10 @@ const Blogs = () => {
                 alt={post.title}
                 className="w-full h-48 object-cover"
               />
+
+
+
+
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
                   {post.title}

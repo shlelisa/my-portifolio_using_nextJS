@@ -46,7 +46,7 @@ const Blogs = () => {
         <p> No Posts found.</p>
       ) : (
         blogPosts.map((post) => (
-          <div  key={post.id} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div  key={post.id} className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4 mb-8">
             <div
              
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"

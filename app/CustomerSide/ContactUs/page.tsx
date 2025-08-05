@@ -1,35 +1,50 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import emailjs from "emailjs-com";
+import React, { useEffect, useState, useRef } from 'react';
+import { supabase } from '@/app/supabase/supabaseClient';
+import emailjs from 'emailjs-com';
 
 const ContactUs = () => {
   const form = useRef<HTMLFormElement>(null);
+  const [statusMessage, setStatusMessage] = useState('');
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  const sendContactToAdmin = async (formData: any) => {
+    const { data, error } = await supabase.from('contact').insert([formData]);
+
+    if (error) {
+      console.error('Error sending contact message:', error);
+      setStatusMessage('❌ Failed to save message to admin.');
+    } else {
+      setStatusMessage('✅ Message saved for admin.');
+    }
+  };
+
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!form.current) return;
 
-    emailjs
+    const formData = {
+      name: form.current.name.valueOf,
+      email: form.current.email.value,
+      title: form.current.title.valueOf,
+      message: form.current.message.value,
+    };
 
-  
-      .sendForm(
-        "service_g13uyno", // 🔁 Replace with your actual EmailJS service ID
-        "template_o67n72i", // 🔁 Replace with your template ID
+    try {
+      await emailjs.sendForm(
+        'service_g13uyno',
+        'template_o67n72i',
         form.current,
-        "vC6pt6HJ8sIAh3fQ3"   // 🔁 Replace with your EmailJS public key
-      )
-      .then(
-        (result) => {
-          alert("Message sent successfully!");
-          form.current?.reset();
-        },
-        (error) => {
-          console.error("Failed to send:", error.text);
-          alert("Failed to send message. Please try again.");
-        }
+        'vC6pt6HJ8sIAh3fQ3'
       );
+      setStatusMessage('✅ Message sent successfully!');
+      sendContactToAdmin(formData);
+      form.current?.reset();
+    } catch (error: any) {
+      console.error('Failed to send email:', error.text);
+      setStatusMessage('❌ Failed to send email.');
+    }
   };
 
   return (
@@ -94,7 +109,7 @@ const ContactUs = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Subject
+                Title
               </label>
               <input
                 type="text"
@@ -126,6 +141,10 @@ const ContactUs = () => {
                 Send Message
               </button>
             </div>
+
+            {statusMessage && (
+              <p className="text-center text-green-600 font-semibold mt-4">{statusMessage}</p>
+            )}
           </form>
         </div>
       </section>

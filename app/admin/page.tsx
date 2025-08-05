@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import AddBlog from './blogs/AddBlog';
 import AdminDashboard from './dashboard/AdminDashboard';
+import Contact from './contact/Contact';
+import Skill from './skills/skill';
 // Add your other components like ContactForm, SkillsEditor, ProjectManager
 
 const AdminPanel = () => {
@@ -15,9 +17,9 @@ const AdminPanel = () => {
       case 'addBlog':
         return <AddBlog />;
       case 'contact':
-        return <p>📩 Contact form submissions coming soon.</p>;
+        return <Contact />;
       case 'skills':
-        return <p>🛠️ Skill update section coming soon.</p>;
+        return <Skill/>;
       case 'projects':
         return <p>📁 Project manager coming soon.</p>;
       default:

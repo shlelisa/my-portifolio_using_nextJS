@@ -1,5 +1,5 @@
 'use client';
-
+import {supabase} from '@/app/supabase/supabaseClient';
 import React from "react";
 
 const Blogs = () => {
@@ -38,6 +38,23 @@ const Blogs = () => {
     image: "https://raw.githubusercontent.com/supabase/supabase/master/apps/www/public/images/github/supabase-dashboard.png"
   }
   ];
+
+
+
+const fetchBlogs = async () => {
+  const { data, error } = await supabase
+    .from('blogs')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching blogs:', error);
+  } else {
+    fetchBlogs();
+  }
+};
+
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">

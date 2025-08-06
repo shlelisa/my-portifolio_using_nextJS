@@ -1,5 +1,5 @@
 import React from "react";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/app/supabase/supabaseClient";
 
 const cardStyle: React.CSSProperties = {
@@ -26,6 +26,9 @@ const cardDataStyle: React.CSSProperties = {
 
 const AdminDashboard = () => {
   const [blogs, setBlogs] = useState<number | undefined>();
+  const [contact, setContact] = useState<number | undefined>();
+  const [skills, setSkills] = useState<number | undefined>();
+  const [projects, setProjects] = useState<number | undefined>();
 
   const fetchBlogsNumber = async () => {
     const { data, error } = await supabase.from("blogs").select("*");
@@ -37,8 +40,41 @@ const AdminDashboard = () => {
     }
   };
 
-   useEffect(() => {
+  const fetchContactNumber = async () => {
+    const { data, error } = await supabase.from("contact").select("*");
+
+    if (error) {
+      console.error("Error fetching blogs:", error.message);
+    } else {
+      setContact(data.length);
+    }
+  };
+
+  const fetchSkillNumber = async () => {
+    const { data, error } = await supabase.from("skills").select("*");
+
+    if (error) {
+      console.error("Error fetching blogs:", error.message);
+    } else {
+      setSkills(data.length);
+    }
+  };
+
+  const fetchProjectNumber = async () => {
+    const { data, error } = await supabase.from("projects").select("*");
+
+    if (error) {
+      console.error("Error fetching blogs:", error.message);
+    } else {
+      setProjects(data.length);
+    }
+  };
+
+  useEffect(() => {
     fetchBlogsNumber();
+    fetchContactNumber();
+    fetchSkillNumber();
+    fetchProjectNumber();
   }, []);
 
   return (
@@ -62,19 +98,19 @@ const AdminDashboard = () => {
       {/* Card 2: Contacts */}
       <div style={cardStyle}>
         <h3 style={cardTitleStyle}>📬 Contact Messages</h3>
-        <p style={cardDataStyle}>17</p>
+        <p style={cardDataStyle}>{contact}</p>
       </div>
 
       {/* Card 3: Skills */}
       <div style={cardStyle}>
         <h3 style={cardTitleStyle}>🛠️ Skills Updated</h3>
-        <p style={cardDataStyle}>12</p>
+        <p style={cardDataStyle}>{skills}</p>
       </div>
 
       {/* Card 4: Projects */}
       <div style={cardStyle}>
         <h3 style={cardTitleStyle}>📁 Projects Added</h3>
-        <p style={cardDataStyle}>8</p>
+        <p style={cardDataStyle}>{projects}</p>
       </div>
     </div>
   );

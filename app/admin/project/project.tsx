@@ -207,7 +207,7 @@ const Project = () => {
               <td style={{ padding: "12px 16px" }}>{project.title}</td>
               <td style={{ padding: "12px 16px" }}>{project.technology}</td>
               <td style={{ padding: "12px 16px" }}>{project.features}</td>
-              <td style={{ padding: "12px 16px" }}>{project.description}</td>
+              <td style={{ padding: "12px 16px" }}>{project.description.substring(0,40)+'...'}</td>
               <td style={{ padding: "12px 16px" }}>
                 <button
                   onClick={() => handleEdit(project)}

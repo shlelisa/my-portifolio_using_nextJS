@@ -162,10 +162,12 @@ const AddBlogForm = () => {
               <tr key={blog.id}>
                 <td style={tdStyle}>
                   <Image
-                    src={blog.image}
-                    alt="blog"
-                    style={{ width: '100px', height: '60px', objectFit: 'cover', borderRadius: '5px' }}
-                  />
+  src={blog.image} // e.g., "/assets/myimage.jpg" or "https://xyz.supabase.co/storage/v1/object/public/images/img.jpg"
+  alt="blog"
+  width={100}
+  height={60}
+  style={{ objectFit: 'cover', borderRadius: '5px' }}
+/>
                 </td>
                 <td style={tdStyle}>{blog.title}</td>
                 <td style={tdStyle}>{blog.message.slice(0, 60)}...</td>

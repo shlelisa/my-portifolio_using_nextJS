@@ -2,6 +2,7 @@
 import {supabase} from '@/app/supabase/supabaseClient';
 import React from "react";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 type Blog = {
   id: number;
@@ -58,7 +59,7 @@ useEffect(() => {
               key={post.id}
               className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1"
             >
-              <img
+              <Image
                 src={post.image}
                 alt={post.title}
                 className="w-full h-56 object-cover"

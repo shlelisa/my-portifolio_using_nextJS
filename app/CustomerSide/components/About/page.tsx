@@ -67,6 +67,8 @@ const About = () => {
           <Image
             src="/assets/profile.jpg" // replace with your actual path
             alt="Lelisa Shashura"
+            width={288} // 72 * 4 = Tailwind w-72
+            height={288}
             className="rounded-2xl shadow-lg w-72 h-72 object-cover"
           />
         </div>

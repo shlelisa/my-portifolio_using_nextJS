@@ -1,7 +1,8 @@
 // components/About.tsx
 "use client";
 import React from "react";
-import { FaUserGraduate, FaLaptopCode, FaBuilding } from "react-icons/fa";
+import Image from "next/image";
+//import { FaUserGraduate, FaLaptopCode, FaBuilding } from "react-icons/fa";
 
 const About = () => {
   return (
@@ -63,7 +64,7 @@ const About = () => {
 
         {/* Right side with image (optional, can remove if not needed) */}
         <div className="flex justify-center">
-          <img
+          <Image
             src="/assets/profile.jpg" // replace with your actual path
             alt="Lelisa Shashura"
             className="rounded-2xl shadow-lg w-72 h-72 object-cover"

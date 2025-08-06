@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { supabase } from '@/app/supabase/supabaseClient';
 import ContactUs from '@/app/CustomerSide/ContactUs/page';
 import About from '@/app/CustomerSide/components/About/page';

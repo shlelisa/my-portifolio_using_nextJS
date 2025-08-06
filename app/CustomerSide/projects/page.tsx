@@ -1,7 +1,5 @@
 // app/projects/page.tsx (or pages/projects/index.tsx)
 import Link from 'next/link';
-import Header from '@/app/CustomerSide/components/Header';
-import Footer from '@/app/CustomerSide/components/Footer';
 
 const projects = [
   {

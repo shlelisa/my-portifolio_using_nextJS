@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/app/supabase/supabaseClient';
 
@@ -161,7 +161,7 @@ const AddBlogForm = () => {
             {filteredBlogs.map((blog) => (
               <tr key={blog.id}>
                 <td style={tdStyle}>
-                  <img
+                  <Image
                     src={blog.image}
                     alt="blog"
                     style={{ width: '100px', height: '60px', objectFit: 'cover', borderRadius: '5px' }}

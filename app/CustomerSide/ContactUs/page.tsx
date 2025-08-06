@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { supabase } from '@/app/supabase/supabaseClient';
 import emailjs from 'emailjs-com';
 
@@ -8,14 +8,14 @@ const ContactUs = () => {
   const form = useRef<HTMLFormElement>(null);
   const [statusMessage, setStatusMessage] = useState('');
 
-  const sendContactToAdmin = async (formData: any) => {
+  const sendContactToAdmin = async (formData: { name: () => string; email: any; title: () => string; message: any; }) => {
     const { data, error } = await supabase.from('contact').insert([formData]);
 
     if (error) {
       console.error('Error sending contact message:', error);
       setStatusMessage('❌ Failed to save message to admin.');
     } else {
-      setStatusMessage('✅ Message saved for admin.');
+      setStatusMessage(data + '✅ Message saved for admin.');
     }
   };
 

@@ -24,7 +24,7 @@ const Skill = () => {
 
   const handleAddSkill = async () => {
     if (!newSkill.trim()) return
-    const { data, error } = await supabase.from('skills').insert({ name: newSkill })
+    const { error } = await supabase.from('skills').insert({ name: newSkill })
     if (!error) {
       setNewSkill('')
       fetchSkills()

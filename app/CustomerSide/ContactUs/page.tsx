@@ -8,7 +8,7 @@ const ContactUs = () => {
   const form = useRef<HTMLFormElement>(null);
   const [statusMessage, setStatusMessage] = useState('');
 
-  const sendContactToAdmin = async (formData: { name: () => string; email: any; title: () => string; message: any; }) => {
+  const sendContactToAdmin = async (formData: { name: () => string; email: string; title: () => string; message: string; }) => {
     const { data, error } = await supabase.from('contact').insert([formData]);
 
     if (error) {
@@ -41,8 +41,14 @@ const ContactUs = () => {
       setStatusMessage('✅ Message sent successfully!');
       sendContactToAdmin(formData);
       form.current?.reset();
-    } catch (error: any) {
-      console.error('Failed to send email:', error.text);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Failed to send email:', error.message);
+      } else if (typeof error === 'object' && error !== null && 'text' in error) {
+        console.error('Failed to send email:', (error as { text?: string }).text);
+      } else {
+        console.error('Failed to send email:', error);
+      }
       setStatusMessage('❌ Failed to send email.');
     }
   };

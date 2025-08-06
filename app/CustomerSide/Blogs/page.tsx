@@ -17,7 +17,7 @@ type Blog = {
 
 
 
-export function Blogs() {
+const Blogs = () =>{
 
   const [blogPosts, setBlogPosts] = useState<Blog[]>([]);
 

@@ -5,11 +5,19 @@ import ContactUs from '@/app/CustomerSide/ContactUs/page';
 import About from '@/app/CustomerSide/components/About/page';
 import Projects from '@/app/CustomerSide/projects/page';
 
+
+type ProfileType = {
+  firstName: string;
+  profileTitle: string;
+}
+
 export default function HomePage() {
   const [skills, setSkills] = useState<string[]>([]);
+  const [profile, setProfile] = useState<ProfileType | null>(null);
 
   useEffect(() => {
     fetchSkills();
+    fetchProfile();
   }, []);
 
   const fetchSkills = async () => {
@@ -21,6 +29,16 @@ export default function HomePage() {
     }
   };
 
+
+  const fetchProfile = async () => {
+    const { data, error } = await supabase.from('profiles').select('*').single();
+    if (error) {
+      console.error('Error fetching profile:', error);
+      return;
+    }
+    setProfile(data);
+  }
+
   return (
     <main className="bg-gradient-to-br from-white via-blue-50 to-blue-100 text-gray-800 font-sans scroll-smooth">
       {/* Hero */}
@@ -29,10 +47,10 @@ export default function HomePage() {
         className="flex flex-col items-center justify-center text-center pt-36 pb-24 bg-gradient-to-b from-white to-blue-50"
       >
         <h1 className="text-5xl md:text-6xl font-extrabold text-blue-800 tracking-tight">
-          LELISA
+          {profile?.firstName.toLocaleUpperCase() || 'LELISA'}
         </h1>
         <p className="text-xl mt-6 text-gray-600 animate-fade-in">
-          Software Developer | Full Stack Enthusiast
+          {profile?.profileTitle || 'Full Stack Developer'}
         </p>
         <a
           href="#contact"

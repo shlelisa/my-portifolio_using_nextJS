@@ -19,6 +19,8 @@ interface ProjectType {
 
 
 const Project = () => {
+
+
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,6 +30,9 @@ const Project = () => {
     features: "",
     image_urls: [] as string[],
   });
+
+
+
   const [imageFiles, setImageFiles] = useState<FileList | null>(null);
   const [uploading, setUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -41,6 +46,7 @@ const Project = () => {
   useEffect(() => {
     fetchProjects();
   }, []);
+
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageFiles(e.target.files);
@@ -57,6 +63,7 @@ const Project = () => {
     setUploading(true);
 
     const imageUrls: string[] = [];
+
     if (imageFiles) {
       for (let i = 0; i < imageFiles.length; i++) {
         const file = imageFiles[i];
@@ -65,7 +72,7 @@ const Project = () => {
         const filePath = `projects/${fileName}`;
 
         const { error: uploadError } = await supabase.storage
-          .from("project-images")
+          .from("photo")
           .upload(filePath, file);
         if (uploadError) {
           console.error("Upload error:", uploadError.message);
@@ -75,11 +82,16 @@ const Project = () => {
         }
 
         const { data: publicUrl } = supabase.storage
-          .from("project-images")
+          .from("photo")
           .getPublicUrl(filePath);
         imageUrls.push(publicUrl.publicUrl);
       }
     }
+
+
+
+
+
 
     const payload = {
       ...formData,
@@ -178,6 +190,7 @@ const Project = () => {
               fontSize: "16px",
             }}
           >
+            <th style={{ padding: "12px 16px" }}>Id</th>
             <th style={{ padding: "12px 16px" }}>Title</th>
             <th style={{ padding: "12px 16px" }}>Technology</th>
             <th style={{ padding: "12px 16px" }}>Features</th>
@@ -204,6 +217,7 @@ const Project = () => {
                 (e.currentTarget.style.transform = "scale(1)")
               }
             >
+              <td style={{ padding: "12px 16px" }}>{project.id}</td>
               <td style={{ padding: "12px 16px" }}>{project.title}</td>
               <td style={{ padding: "12px 16px" }}>{project.technology}</td>
               <td style={{ padding: "12px 16px" }}>{project.features}</td>

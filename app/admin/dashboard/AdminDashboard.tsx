@@ -2,6 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/app/supabase/supabaseClient";
 
+
+
+
+
+
 const cardStyle: React.CSSProperties = {
   backgroundColor: "#f0f4ff",
   padding: "20px",
@@ -102,7 +107,10 @@ const AdminDashboard = () => {
       </div>
 
       {/* Card 3: Skills */}
-      <div style={cardStyle}>
+
+
+      <div style={cardStyle}
+      >
         <h3 style={cardTitleStyle}>🛠️ Skills Updated</h3>
         <p style={cardDataStyle}>{skills}</p>
       </div>

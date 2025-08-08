@@ -124,6 +124,7 @@ const Skill = () => {
               </>
             ) : (
               <>
+                <span>{skill.id}</span>
                 <span>{skill.name}</span>
                 <div>
                   <button

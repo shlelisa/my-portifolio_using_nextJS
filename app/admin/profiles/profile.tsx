@@ -68,13 +68,12 @@ const ProfilePage = () => {
     email: form.email,
     about: form.about,
     experience: form.experience,
-    skills: form.skills,
   };
 
   const { error } = await supabase
     .from("profiles")
     .update(updateData)
-    .eq("firstName", 'lelisa');
+    .eq("id", form.id);
 
   if (error) {
     console.error("Update error:", error.message);
@@ -345,43 +344,8 @@ const ProfilePage = () => {
           )}
         </section>
 
-        {/* Skills */}
-        <section style={{ marginTop: "40px" }}>
-          <h2
-            style={{
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "#111827",
-              borderBottom: "2px solid #e5e7eb",
-              paddingBottom: "4px",
-              marginBottom: "12px",
-            }}
-          >
-            Skills
-          </h2>
-          {editMode ? (
-            <input
-              type="text"
-              name="skills"
-              value={form.skills}
-              onChange={handleChange}
-              style={inputStyle}
-              placeholder="Comma separated"
-            />
-          ) : (
-            <ul
-              style={{
-                paddingLeft: "20px",
-                color: "#374151",
-                lineHeight: "1.7",
-              }}
-            >
-              {profile.skills?.split(",").map((skill) => (
-                <li key={skill.trim()}>{skill.trim()}</li>
-              ))}
-            </ul>
-          )}
-        </section>
+       
+       
 
         {/* Buttons */}
         <div style={{ marginTop: "30px" }}>

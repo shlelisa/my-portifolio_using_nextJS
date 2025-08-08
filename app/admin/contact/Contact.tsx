@@ -61,7 +61,6 @@ const ContactTable = () => {
 
   const filteredContacts = contacts.filter(
     (item) =>
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.email.toLowerCase().includes(search.toLowerCase()) ||
       item.title.toLowerCase().includes(search.toLowerCase())
   );

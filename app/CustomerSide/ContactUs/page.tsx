@@ -8,7 +8,7 @@ const ContactUs = () => {
   const form = useRef<HTMLFormElement>(null);
   const [statusMessage, setStatusMessage] = useState('');
 
-  const sendContactToAdmin = async (formData: { name: () => string; email: string; title: () => string; message: string; }) => {
+  const sendContactToAdmin = async (formData: { name: string; email: string; title: string; message: string; }) => {
     const { data, error } = await supabase.from('contact').insert([formData]);
 
     if (error) {
@@ -25,10 +25,10 @@ const ContactUs = () => {
     if (!form.current) return;
 
     const formData = {
-      name: form.current.name.valueOf,
-      email: form.current.email.value,
-      title: form.current.title.valueOf,
-      message: form.current.message.value,
+      name: (form.current.elements.namedItem('name') as HTMLInputElement)?.value || '',
+      email: (form.current.elements.namedItem('email') as HTMLInputElement)?.value || '',
+      title: (form.current.elements.namedItem('title') as HTMLInputElement)?.value || '',
+      message: (form.current.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
     };
 
     try {

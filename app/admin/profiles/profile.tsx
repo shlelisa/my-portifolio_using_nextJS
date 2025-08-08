@@ -9,9 +9,7 @@ import {
   FaFacebook,
   FaGithub,
   FaLinkedin,
-  FaMailBulk,
   FaTelegram,
-  FaVoicemail,
   FaYoutube,
 } from "react-icons/fa";
 
@@ -55,7 +53,7 @@ const ProfilePage = () => {
       const fileName = `${form?.id}-${Date.now()}.${fileExt}`;
       const filePath = `profile-photos/${fileName}`;
 
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from("photo")
         .upload(filePath, file);
 
@@ -79,8 +77,8 @@ const ProfilePage = () => {
       setProfile({ ...profile!, image_url: newImageUrl });
       setSuccessMessage("Profile photo updated!");
       setTimeout(() => setSuccessMessage(""), 1000);
-    } catch (err: any) {
-      console.error("Error uploading photo:", err.message);
+    } catch (err) {
+      console.error("Error uploading photo:", err);
     } finally {
       setUploadingPhoto(false);
     }

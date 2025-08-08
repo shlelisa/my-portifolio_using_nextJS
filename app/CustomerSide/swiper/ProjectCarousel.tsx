@@ -5,6 +5,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Image from "next/image";
 
 export default function ProjectCarousel({ images }: { images: string[] }) {
   return (
@@ -19,10 +20,12 @@ export default function ProjectCarousel({ images }: { images: string[] }) {
     >
       {images.map((url, idx) => (
         <SwiperSlide key={idx}>
-          <img
+          <Image
             src={url || "/assets/default-project-image.jpg"}
             alt={`Project image ${idx + 1} `}
             className="w-full h-[400px] object-cover rounded-2xl"
+            width={500}
+            height={300}
           />
         </SwiperSlide>
       ))}

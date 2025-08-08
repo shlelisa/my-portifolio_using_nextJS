@@ -1,99 +1,62 @@
+// app/CustomerSide/projects/[id]/page.tsx
 import { notFound } from "next/navigation";
+import { supabase } from "@/app/supabase/supabaseClient";
+import ProjectCarousel from "@/app/CustomerSide/swiper/ProjectCarousel";
 
-
-
-const projects = [
-  {
-    id: "employee-hiring",
-    name: "Employee Hiring System",
-    shortDescription:
-      "A web platform for managing job postings and applicant tracking.",
-    fullDescription: `The Employee Hiring System is a web-based application that streamlines the recruitment process. 
-    It allows HR teams to post vacancies, manage applications, review candidate profiles, and schedule interviews.
-    Built with a focus on scalability and security, the system is tailored for institutional use.`,
-    technologies: ["React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
-    features: [
-      "Admin dashboard for HR staff",
-      "Vacancy posting and editing",
-      "Applicant submission and tracking",
-      "Resume upload and management",
-      "Search and filter functionality",
-    ],
-    image: "/assets/hiring-system.png",
-    link: "/projects/employee-hiring-system",
-  },
-  {
-    id: "house-rental",
-    name: "House Rental System",
-    shortDescription:
-      "Built for Bule Hora City to manage house rentals online.",
-    fullDescription: `The House Rental System is an online platform developed for Bule Hora City. 
-    It facilitates landlords to list rental properties and enables tenants to search, filter, and apply for houses. 
-    It includes property management tools, maps, and secure user authentication.`,
-    technologies: [
-      "Next.js",
-      "MongoDB",
-      "Node.js",
-      "Cloudinary",
-      "CSS Modules",
-    ],
-    features: [
-      "User registration and login",
-      "Map-based property search",
-      "Admin control for property approval",
-      "Rental application and contact system",
-      "Responsive and mobile-friendly design",
-    ],
-    image: "/assets/house-rental-system.png",
-    link: "/projects/house-rental-system",
-  },
-];
-
-// ✅ FIX: Removed async
-export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
+export default async function ProjectDetail({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
-  const project = projects.find((p) => p.id === id);
 
-  if (!project) {
+  const { data: project, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !project) {
     notFound();
   }
+const images: string[] = project.image_urls.map((url: string) => url.trim());
+
+
+  const technologies =
+    project.technology?.split(",").map((t:string) => t.trim()) || [];
+  const features = project.features?.split(",").map((f:string) => f.trim()) || [];
 
   return (
-    <section className="py-20 px-6 bg-gray-50 min-h-screen flex justify-center items-start">
-      <div className="max-w-7xl w-full">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-16">
-          My Projects
+    <section className="py-12 px-6 bg-gray-50 min-h-screen flex justify-center">
+      <div className="max-w-5xl w-full">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-10">
+          {project.title}
         </h2>
 
-        <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200 hover:shadow-2xl transition duration-300">
-            <h3 className="text-2xl font-semibold text-blue-900 mb-4">
-              {project.name}
-            </h3>
-            <p className="text-gray-700 mb-6">{project.fullDescription}</p>
+        {images.length > 0 && <ProjectCarousel images={images} />}
 
-            <div className="mb-4">
-              <h4 className="text-gray-800 font-semibold mb-1">
-                Technologies:
-              </h4>
-              <ul className="list-disc ml-5 text-gray-600 space-y-1">
-                {project.technologies.map((tech, index) => (
-                  <li key={index}>{tech}</li>
-                ))}
-              </ul>
-            </div>
+        <p className="text-gray-700 text-lg mb-8">{project.description}</p>
 
-            <div>
-              <h4 className="text-gray-800 font-semibold mb-1">
-                Key Features:
-              </h4>
-              <ul className="list-disc ml-5 text-gray-600 space-y-1">
-                {project.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div className="mb-6">
+          <h4 className="text-xl font-semibold text-blue-700 mb-2">
+            Technologies
+          </h4>
+          <ul className="list-disc ml-5 text-gray-600 space-y-1">
+            {technologies.map((tech: string, index: string) => (
+              <li key={index}>{tech}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-xl font-semibold text-blue-700 mb-2">
+            Key Features
+          </h4>
+          <ul className="list-disc ml-5 text-gray-600 space-y-1">
+            {features.map((feature: string, index: string) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

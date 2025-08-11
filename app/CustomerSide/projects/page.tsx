@@ -55,9 +55,10 @@ export default function ProjectsPage() {
                     "/assets/default-project-image.jpg"
                   }
                   alt={project.title}
-                  fill
-                  className="object-cover rounded-lg"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  width={500}
+                  height={300}
+                  className="w-full h-64 object-cover rounded-lg mb-6 max-w-full"
+                  style={{ height: "auto" }}
                 />
               </div>
               <h3 className="text-2xl font-semibold text-blue-900 mb-3">

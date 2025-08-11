@@ -18,7 +18,7 @@ const Header = () => {
 
         {/* Hamburger Icon (Mobile) */}
         <div className="md:hidden" onClick={toggleMenu}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={15} /> : <Menu size={15} />}
         </div>
 
         {/* Desktop Nav */}
@@ -46,7 +46,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <ul className="md:hidden flex flex-col gap-4 bg-white px-6 pb-6 text-gray-800 font-medium text-lg animate-fade-in">
+        <ul className="md:hidden flex flex-col gap-2 bg-white mx-30 px-2 pb-2 text-gray-800 font-medium text-lg animate-fade-in">
           <li className="cursor-pointer hover:text-blue-800">
             <Link href="/" onClick={toggleMenu}>Home</Link>
           </li>

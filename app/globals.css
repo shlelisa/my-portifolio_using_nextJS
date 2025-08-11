@@ -8,8 +8,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
@@ -20,7 +20,6 @@ body {
   padding: 0;
   scroll-behavior: smooth;
   background-color: var(--background);
-  color: var(--foreground);
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
 }
@@ -34,7 +33,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 main {

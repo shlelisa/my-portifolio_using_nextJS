@@ -43,6 +43,9 @@ const ProfilePage = () => {
 
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
+
+
+
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
 
@@ -68,7 +71,7 @@ const ProfilePage = () => {
       //update only image_url in profiles table
       const { error: updateError } = await supabase
         .from("profiles")
-        .update({ image_url: newImageUrl })
+        .update({ image_url: filePath })
         .eq("id", form?.id);
 
       if (updateError) throw updateError;
@@ -83,6 +86,13 @@ const ProfilePage = () => {
       setUploadingPhoto(false);
     }
   };
+
+
+
+
+
+
+
 
   useEffect(() => {
     const getProfileData = async () => {

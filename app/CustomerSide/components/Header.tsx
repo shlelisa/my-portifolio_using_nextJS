@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react"; // You can install lucide-react or use any other icon
 import { supabase } from "@/app/supabase/supabaseClient"; // Adjust the import path as necessary
+import Image from "next/image"; // Ensure you have next/image for optimized images
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,20 +31,20 @@ const Header = () => {
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <div className="text-xl font-bold text-blue-800">
-          <Link href="/">
-            <div className="flex items-center space-x-3">
-              {logo.logo ? (
-                <img
-                  src={logo.logo}
-                  alt="Logo"
-                  className="h-12 w-12 object-cover rounded-full border-2 border-blue-500 shadow-md hover:scale-110 transition-transform duration-300"
-                />
-              ) : (
-                <span className="text-2xl font-bold text-blue-600 tracking-wide">
-                  My Portfolio
-                </span>
-              )}
-            </div>
+          <Link href="/" className="flex items-center space-x-3">
+            {logo.logo ? (
+              <Image
+                src={logo.logo}
+                alt="Logo"
+                width={100} // required for Next.js Image
+                height={120} // required for Next.js Image
+                className="object-cover rounded-full border-2 border-blue-500 shadow-md hover:scale-110 transition-transform duration-300"
+              />
+            ) : (
+              <span className="text-2xl font-bold text-blue-600 tracking-wide">
+                My Portfolio
+              </span>
+            )}
           </Link>
         </div>
 

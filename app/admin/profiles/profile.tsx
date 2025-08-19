@@ -27,6 +27,7 @@ type Profile = {
   profileTitle: string;
   title?: string;
   image_url?: string;
+  logo?: string;
   linkedin?: string;
   github?: string;
   email?: string;
@@ -42,10 +43,10 @@ const ProfilePage = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
+const [uploadingLogo, setUploadingLogo] = useState(false);
 
 
-
-
+  
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
 
@@ -71,7 +72,7 @@ const ProfilePage = () => {
       //update only image_url in profiles table
       const { error: updateError } = await supabase
         .from("profiles")
-        .update({ image_url: filePath })
+        .update({ image_url: newImageUrl })
         .eq("id", form?.id);
 
       if (updateError) throw updateError;
@@ -89,6 +90,43 @@ const ProfilePage = () => {
 
 
 
+
+
+
+  const handleLogoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (!e.target.files || e.target.files.length === 0) return;
+
+  try {
+    setUploadingLogo(true);
+    const file = e.target.files[0];
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${form?.id}-logo-${Date.now()}.${fileExt}`;
+    const filePath = `logos/${fileName}`;
+
+    const { error } = await supabase.storage.from("photo").upload(filePath, file);
+    if (error) throw error;
+
+    const { data: publicUrlData } = supabase.storage.from("photo").getPublicUrl(filePath);
+    const newLogoUrl = publicUrlData.publicUrl;
+
+    // ✅ Update logo in database
+    const { error: updateError } = await supabase
+      .from("profiles")
+      .update({ logo: newLogoUrl })
+      .eq("id", form?.id);
+
+    if (updateError) throw updateError;
+
+    setForm({ ...form!, logo: newLogoUrl });
+    setProfile({ ...profile!, logo: newLogoUrl });
+    setSuccessMessage("Logo updated!");
+    setTimeout(() => setSuccessMessage(""), 1000);
+  } catch (err) {
+    console.error("Error uploading logo:", err);
+  } finally {
+    setUploadingLogo(false);
+  }
+};
 
 
 
@@ -129,6 +167,7 @@ const ProfilePage = () => {
       lastName: form.lastName,
       profileTitle: form.profileTitle,
       image_url: form.image_url,
+      logo: form.logo,
       linkedin: form.linkedin,
       github: form.github,
       email: form.email,
@@ -209,6 +248,9 @@ const ProfilePage = () => {
             />
           )}
 
+
+
+
           <div style={{ marginTop: "10px" }}>
             <label
               style={{
@@ -230,6 +272,51 @@ const ProfilePage = () => {
               />
             </label>
           </div>
+
+
+
+
+
+{/* Display Logo */}
+{form.logo && (
+  <div style={{ margin: "20px" }}>
+    <Image
+      src={form.logo}
+      alt="Logo"
+      width={120}
+      height={120}
+      style={{ borderRadius: "8px", border: "2px solid #ccc" }}
+    />
+  </div>
+)}
+
+{/* Upload Logo Button */}
+<div style={{ marginBottom: "20px" }}>
+  <label
+    style={{
+      backgroundColor: "#2563eb",
+      color: "white",
+      padding: "6px 12px",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontSize: "14px",
+      display: "inline-block",
+    }}
+  >
+    {uploadingLogo ? "Uploading Logo..." : "Change Logo"}
+    <input
+      type="file"
+      accept="image/*"
+      style={{ display: "none" }}
+      onChange={handleLogoChange}
+    />
+  </label>
+</div>
+
+
+
+
+
 
           <div style={{ flex: 1 }}>
             {editMode ? (
